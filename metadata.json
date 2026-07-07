@@ -1,0 +1,6 @@
+{
+  "name": "SRT Subtitle Tool",
+  "description": "A powerful utility for extracting dialogs from SRT subtitles and aligning/correcting subtitle timestamps fully offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
