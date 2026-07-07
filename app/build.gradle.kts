@@ -17,8 +17,8 @@ android {
     applicationId = "com.aistudio.srttoolbox.pkyfma"
     minSdk = 24
     targetSdk = 36
-    versionCode = 1
-    versionName = "1.0"
+    versionCode = 5
+    versionName = "1.0.4"
 
     // Dynamic version override to ensure every single local or GitHub build increments automatically
     val dynamicVersionCode = System.getenv("APP_VERSION_CODE")?.toIntOrNull() 
