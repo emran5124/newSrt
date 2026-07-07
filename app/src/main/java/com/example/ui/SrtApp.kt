@@ -622,7 +622,7 @@ fun CreatorTab(
 
     // SAF Aligned SRT File Saver
     val saveSrtLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument("text/plain")
+        contract = ActivityResultContracts.CreateDocument("application/x-subrip")
     ) { uri ->
         uri?.let {
             writeTextToUri(context, it, state.srtOutput)
