@@ -22,6 +22,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -190,7 +193,7 @@ fun SrtApp(viewModel: SrtViewModel) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ExtractorTab(
     viewModel: SrtViewModel,
@@ -212,14 +215,19 @@ fun ExtractorTab(
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
         ) {
-            // Description Card
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .widthIn(max = 640.dp)
+                    .verticalScroll(scrollState)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Description Card
             Card(
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
@@ -289,13 +297,16 @@ fun ExtractorTab(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // Input actions row
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         // Stats
-                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        ) {
                             Text(
                                 text = "تعداد زیرنویس: ${state.subtitleCount}",
                                 style = MaterialTheme.typography.bodySmall,
@@ -337,6 +348,7 @@ fun ExtractorTab(
                                     viewModel.clearExtractionInput()
                                     showSnackbar("ورودی پاک شد")
                                 },
+                                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                                 modifier = Modifier.testTag("clear_input_button")
                             ) {
                                 Icon(
@@ -513,10 +525,10 @@ fun ExtractorTab(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     // Output actions row
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
                             onClick = {
@@ -524,6 +536,7 @@ fun ExtractorTab(
                                 showSnackbar("خروجی پاک شد")
                             },
                             enabled = state.srtOutput.isNotEmpty(),
+                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                             modifier = Modifier.testTag("clear_output_button")
                         ) {
                             Icon(
@@ -582,8 +595,9 @@ fun ExtractorTab(
         }
     }
 }
+}
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun CreatorTab(
     viewModel: SrtViewModel,
@@ -617,14 +631,19 @@ fun CreatorTab(
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter
         ) {
-            // Instructions Card
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .widthIn(max = 640.dp)
+                    .verticalScroll(scrollState)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Instructions Card
             Card(
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f)
@@ -819,13 +838,16 @@ fun CreatorTab(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // Input actions row
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         // Stats
-                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        ) {
                             Text(
                                 text = "تعداد دیالوگ‌ها: ${state.mainSubtitleCount}",
                                 style = MaterialTheme.typography.bodySmall,
@@ -875,6 +897,7 @@ fun CreatorTab(
                                     viewModel.clearSyncInput()
                                     showSnackbar("ورودی پاک شد")
                                 },
+                                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                                 modifier = Modifier.testTag("clear_creator_input_button")
                             ) {
                                 Icon(
@@ -1014,10 +1037,10 @@ fun CreatorTab(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     // Output actions row
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
                             onClick = {
@@ -1025,6 +1048,7 @@ fun CreatorTab(
                                 showSnackbar("خروجی پاک شد")
                             },
                             enabled = state.srtOutput.trim().isNotEmpty() && state.mainInput.trim().isNotEmpty(),
+                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                             modifier = Modifier.testTag("clear_creator_output_button")
                         ) {
                             Icon(
@@ -1082,6 +1106,7 @@ fun CreatorTab(
             }
         }
     }
+}
 }
 
 // ==========================================
